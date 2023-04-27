@@ -40,7 +40,11 @@
             </p>
           </div>
         </form>
-        <button class="icon-arrow" v-on:click="calculateDate">
+        <button
+          class="icon-arrow"
+          v-on:click="handleSubmit"
+          aria-label="calculate"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="38"
@@ -98,21 +102,17 @@ export default {
   },
 
   methods: {
-    calculateDate() {
-      let error = this.checkError(
-        this.inputDay,
-        this.inputMonth,
-        this.inputYear
-      );
-
-      if (error) {
+    handleSubmit() {
+      if (this.checkError(this.inputDay, this.inputMonth, this.inputYear)) {
         return;
       }
 
-      const today = new Date();
-
       this.resetError();
+      this.calculateDate();
+    },
 
+    calculateDate() {
+      const today = new Date();
       const givenDate = new Date(
         [this.inputYear, this.inputMonth, this.inputDay].join("-")
       );
