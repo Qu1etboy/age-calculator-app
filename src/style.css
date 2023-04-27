@@ -91,6 +91,11 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+::placeholder {
+  overflow: visible;
 }
 
 #app {
