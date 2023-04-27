@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div>
     <div class="box">
@@ -10,6 +8,7 @@
             <input
               v-model="inputDay"
               placeholder="DD"
+              type="number"
               :class="{ 'input-error': errorDay }"
             />
             <p v-show="errorDay" class="error">
@@ -21,6 +20,7 @@
             <input
               v-model="inputMonth"
               placeholder="MM"
+              type="number"
               :class="{ 'input-error': errorMonth }"
             />
             <p v-show="errorMonth" class="error">
@@ -32,6 +32,7 @@
             <input
               v-model="inputYear"
               placeholder="YYYY"
+              type="number"
               :class="{ 'input-error': errorYear }"
             />
             <p v-show="errorYear" class="error">
@@ -42,7 +43,7 @@
         <button class="icon-arrow" v-on:click="calculateDate">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="46"
+            width="38"
             height="44"
             viewBox="0 0 46 44"
           >
@@ -110,9 +111,7 @@ export default {
 
       const today = new Date();
 
-      this.errorDay = false;
-      this.errorMonth = false;
-      this.errorYear = false;
+      this.resetError();
 
       const givenDate = new Date(
         [this.inputYear, this.inputMonth, this.inputDay].join("-")
@@ -131,6 +130,8 @@ export default {
 
     checkError(day: string, month: string, year: string) {
       let error = false;
+
+      this.resetError();
 
       const today = new Date();
 
@@ -171,6 +172,12 @@ export default {
       }
 
       return error;
+    },
+
+    resetError() {
+      this.errorDay = false;
+      this.errorMonth = false;
+      this.errorYear = false;
     },
   },
 };
@@ -225,10 +232,9 @@ label {
 
 .form-container {
   position: relative;
-  padding: 2rem 2rem 2.5rem 0;
+  padding: 2rem 8rem 2.5rem 0;
   border-bottom: 1px solid hsl(0, 0%, 94%);
   margin-bottom: 2rem;
-  width: 500px;
 }
 
 .form {
@@ -252,8 +258,10 @@ label {
   border-radius: 100%;
   padding: 1rem;
   position: absolute;
-  right: -80px;
+  right: 0px;
   bottom: -30px;
+  width: 80px;
+  height: 80px;
 }
 
 .icon-arrow:hover {
@@ -263,7 +271,8 @@ label {
 
 .error {
   color: hsl(0, 100%, 67%);
-  font-size: 12px;
+  margin-top: 5px;
+  font-size: 10px;
 }
 
 .attribution {
@@ -277,5 +286,23 @@ label {
 
 .attribution a:hover {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 783px) {
+  .icon-arrow {
+    padding: 1rem;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+  }
+
+  .form-container {
+    padding: 2rem 2rem 5rem 0;
+    margin-bottom: 2rem;
+  }
 }
 </style>
